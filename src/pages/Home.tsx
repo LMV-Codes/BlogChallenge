@@ -28,29 +28,6 @@ export const Home: React.FC = () => {
     getPostData();
   }, [getPostData]);
 
-  const deletePost = async (id: number) => {
-    try {
-      const response = await AxiosApi.delete(`${id}`);
-      if (response.statusText === "OK") {
-        const newArray = posts.filter((post) => post.id !== id);
-        setPosts(newArray);
-        toast({
-          title: "Post deleted!",
-          status: "info",
-          isClosable: true,
-          duration: 1000,
-        });
-      }
-    } catch (error) {
-      toast({
-        title: "Couldn't remove post",
-        status: "error",
-        isClosable: true,
-        duration: 5000,
-      });
-    }
-  };
-
   return (
     <Container maxWidth="container.xl" bg="gray.100">
       <Flex flexDir="column">
