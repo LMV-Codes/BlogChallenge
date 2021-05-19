@@ -3,6 +3,7 @@ import { Button, Container, Flex, Heading, useToast } from "@chakra-ui/react";
 import { PostData } from "../utils/CustomInterfaces";
 import { AxiosApi } from "../utils/AxiosApi";
 import { Link } from "react-router-dom";
+import { Post } from "../components/post/Post";
 export const Home: React.FC = () => {
   const toast = useToast();
 
@@ -54,38 +55,7 @@ export const Home: React.FC = () => {
     <Container maxWidth="container.xl" bg="gray.100">
       <Flex flexDir="column">
         {posts.map((post, index) => (
-          <Flex
-            key={index}
-            margin="1em"
-            flexDir="column"
-            bg="gray.200"
-            padding="1em"
-            borderRadius="5px"
-          >
-            <Heading size="lg" fontWeight="regular" color="gray.600">
-              {post.title}
-            </Heading>
-            <Flex justifyContent="space-between">
-              <Flex>
-                <Link to={`post/${post.id}`}>
-                  <Button variant="outline" margin="1em" colorScheme="blue">
-                    Detail
-                  </Button>
-                </Link>
-                <Button variant="outline" margin="1em" colorScheme="teal">
-                  Edit
-                </Button>
-              </Flex>
-              <Button
-                variant="outline"
-                margin="1em"
-                colorScheme="red"
-                onClick={() => deletePost(post.id)}
-              >
-                Delete
-              </Button>
-            </Flex>
-          </Flex>
+          <Post post={post} posts={posts} index={index} setPosts={setPosts} />
         ))}
       </Flex>
     </Container>
