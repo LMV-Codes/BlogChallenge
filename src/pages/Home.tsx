@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Container, Flex, Heading, useToast } from "@chakra-ui/react";
+import { Container, Flex, useToast } from "@chakra-ui/react";
 import { PostData } from "../utils/CustomInterfaces";
 import { AxiosApi } from "../utils/AxiosApi";
-import { Link } from "react-router-dom";
 import { Post } from "../components/post/Post";
 export const Home: React.FC = () => {
   const toast = useToast();

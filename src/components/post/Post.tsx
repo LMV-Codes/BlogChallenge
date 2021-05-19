@@ -1,17 +1,21 @@
 import { Button } from "@chakra-ui/button";
 import { Flex, Heading } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AxiosApi } from "../../utils/AxiosApi";
 import { PostData } from "../../utils/CustomInterfaces";
+import { PostEdit } from "./PostEdit";
+
 interface PostProps {
   posts: Array<PostData>;
   setPosts: Function;
   post: PostData;
   index: number;
 }
+
 export const Post: React.FC<PostProps> = ({ posts, setPosts, post, index }) => {
+  const [edit, setEdit] = useState(false);
   const toast = useToast();
   const deletePost = async (id: number) => {
     try {
@@ -55,7 +59,12 @@ export const Post: React.FC<PostProps> = ({ posts, setPosts, post, index }) => {
               Detail
             </Button>
           </Link>
-          <Button variant="outline" margin="1em" colorScheme="teal">
+          <Button
+            variant="outline"
+            margin="1em"
+            colorScheme="teal"
+            onClick={() => setEdit(true)}
+          >
             Edit
           </Button>
         </Flex>
@@ -68,6 +77,7 @@ export const Post: React.FC<PostProps> = ({ posts, setPosts, post, index }) => {
           Delete
         </Button>
       </Flex>
+      {edit && <PostEdit data={post} setEdit={setEdit} />}
     </Flex>
   );
 };
