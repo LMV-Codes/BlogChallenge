@@ -24,27 +24,34 @@ export const Home: React.FC = () => {
 
   return (
     <Container maxWidth="container.xl" bg="gray.100">
-      {posts.map((post) => (
-        <Flex
-          margin="1em"
-          flexDir="column"
-          bg="gray.200"
-          padding="1em"
-          borderRadius="5px"
-        >
-          <Heading size="lg" fontWeight="regular" color="gray.600">
-            {post.title}
-          </Heading>
-          <Flex justifyContent="space-between">
-            <Button variant="outline" margin="1em" colorScheme="blue">
-              Detail
-            </Button>
-            <Button variant="outline" margin="1em" colorScheme="red">
-              Delete
-            </Button>
+      <Flex flexDir="column">
+        {posts.map((post) => (
+          <Flex
+            margin="1em"
+            flexDir="column"
+            bg="gray.200"
+            padding="1em"
+            borderRadius="5px"
+          >
+            <Heading size="lg" fontWeight="regular" color="gray.600">
+              {post.title}
+            </Heading>
+            <Flex justifyContent="space-between">
+              <Flex>
+                <Button variant="outline" margin="1em" colorScheme="blue">
+                  Detail
+                </Button>
+                <Button variant="outline" margin="1em" colorScheme="teal">
+                  Edit
+                </Button>
+              </Flex>
+              <Button variant="outline" margin="1em" colorScheme="red">
+                Delete
+              </Button>
+            </Flex>
           </Flex>
-        </Flex>
-      ))}
+        ))}
+      </Flex>
     </Container>
   );
 };
