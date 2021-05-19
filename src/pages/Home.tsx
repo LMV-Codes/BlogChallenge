@@ -2,15 +2,14 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { Button, Container, Flex, Heading } from "@chakra-ui/react";
 import { PostData } from "../utils/CustomInterfaces";
+import { AxiosApi } from "../utils/AxiosApi";
 
 export const Home: React.FC = () => {
   const [posts, setPosts] = useState<Array<PostData>>([]);
 
   const getPostData = useCallback(async () => {
     try {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
+      const response = await AxiosApi.get("");
       console.log(response.data);
       setPosts(response.data);
     } catch (error) {
