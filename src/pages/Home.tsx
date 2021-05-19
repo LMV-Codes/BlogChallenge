@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { Button, Container, Flex, Heading } from "@chakra-ui/react";
 import { PostData } from "../utils/CustomInterfaces";
 import { AxiosApi } from "../utils/AxiosApi";
+import { Link } from "react-router-dom";
 
 export const Home: React.FC = () => {
   const [posts, setPosts] = useState<Array<PostData>>([]);
@@ -37,9 +37,11 @@ export const Home: React.FC = () => {
             </Heading>
             <Flex justifyContent="space-between">
               <Flex>
-                <Button variant="outline" margin="1em" colorScheme="blue">
-                  Detail
-                </Button>
+                <Link to={`post/${post.id}`}>
+                  <Button variant="outline" margin="1em" colorScheme="blue">
+                    Detail
+                  </Button>
+                </Link>
                 <Button variant="outline" margin="1em" colorScheme="teal">
                   Edit
                 </Button>
