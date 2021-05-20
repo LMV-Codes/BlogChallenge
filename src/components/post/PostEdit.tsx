@@ -9,16 +9,25 @@ import { AxiosApi } from "../../utils/AxiosApi";
 import { CloseIcon } from "@chakra-ui/icons";
 
 interface PostEditProps {
+  setPosts: Function;
   setEdit: Function;
   data: PostData;
+  posts: Array<PostData>;
 }
 
 interface initValues {
+  userId: number;
+  id: number;
   title: string;
   body: string;
 }
 
-export const PostEdit: React.FC<PostEditProps> = ({ data, setEdit }) => {
+export const PostEdit: React.FC<PostEditProps> = ({
+  data,
+  setEdit,
+  setPosts,
+  posts,
+}) => {
   const toast = useToast();
   const editSchema = Yup.object().shape({
     title: Yup.string().min(3, "Title too small").required("Title is required"),
@@ -28,8 +37,16 @@ export const PostEdit: React.FC<PostEditProps> = ({ data, setEdit }) => {
   });
 
   const initialValues: initValues = {
+    userId: data.userId,
+    id: data.id,
     title: data.title,
     body: data.body,
+  };
+
+  const editArray = (array: Array<PostData>, newPost: PostData) => {
+    // Returns a new array with the edited post
+    const indexOfPost = array.findIndex((post) => post.id === newPost.id);
+    return array.map((post, index) => (index === indexOfPost ? newPost : post));
   };
 
   return (
@@ -40,6 +57,7 @@ export const PostEdit: React.FC<PostEditProps> = ({ data, setEdit }) => {
       height="100%"
       width="100%"
       bg="rgba(120,120,120,0.8)"
+      zIndex={20}
     >
       <Container
         marginTop="5em"
@@ -65,12 +83,22 @@ export const PostEdit: React.FC<PostEditProps> = ({ data, setEdit }) => {
           validationSchema={editSchema}
           initialValues={initialValues}
           onSubmit={async (values) => {
+            const newPost = {
+              userId: values.userId,
+              id: values.id,
+              title: values.title,
+              body: values.body,
+            };
             try {
               const response = await AxiosApi.patch(`${data.id}`, {
                 title: values.title,
                 body: values.body,
               });
-              return response.data;
+              if (response.status === 200) {
+                const newArray = editArray(posts, newPost);
+                setPosts(newArray);
+                setEdit(false);
+              }
             } catch (error) {
               toast({
                 title: "Error",

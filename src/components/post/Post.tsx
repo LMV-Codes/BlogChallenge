@@ -14,13 +14,13 @@ interface PostProps {
   index: number;
 }
 
-export const Post: React.FC<PostProps> = ({ posts, setPosts, post, index }) => {
+export const Post: React.FC<PostProps> = ({ posts, setPosts, post }) => {
   const [edit, setEdit] = useState(false);
   const toast = useToast();
   const deletePost = async (id: number) => {
     try {
       const response = await AxiosApi.delete(`${id}`);
-      if (response.statusText === "OK") {
+      if (response.status === 200) {
         const newArray = posts.filter((post) => post.id !== id);
         setPosts(newArray);
         toast({
@@ -42,7 +42,6 @@ export const Post: React.FC<PostProps> = ({ posts, setPosts, post, index }) => {
 
   return (
     <Flex
-      key={index}
       margin="1em"
       flexDir="column"
       bg="gray.200"
@@ -77,7 +76,14 @@ export const Post: React.FC<PostProps> = ({ posts, setPosts, post, index }) => {
           Delete
         </Button>
       </Flex>
-      {edit && <PostEdit data={post} setEdit={setEdit} />}
+      {edit && (
+        <PostEdit
+          data={post}
+          setEdit={setEdit}
+          setPosts={setPosts}
+          posts={posts}
+        />
+      )}
     </Flex>
   );
 };

@@ -31,7 +31,13 @@ export const Home: React.FC = () => {
     <Container maxWidth="container.xl" bg="gray.100">
       <Flex flexDir="column">
         {posts.map((post, index) => (
-          <Post post={post} posts={posts} index={index} setPosts={setPosts} />
+          <Post
+            post={post}
+            posts={posts}
+            index={index}
+            setPosts={setPosts}
+            key={index}
+          />
         ))}
       </Flex>
     </Container>
