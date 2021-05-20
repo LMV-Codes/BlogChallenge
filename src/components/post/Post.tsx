@@ -1,4 +1,5 @@
 import { Button } from "@chakra-ui/button";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { Flex, Heading } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
 import React, { useState } from "react";
@@ -73,7 +74,7 @@ export const Post: React.FC<PostProps> = ({ posts, setPosts, post }) => {
           colorScheme="red"
           onClick={() => deletePost(post.id)}
         >
-          Delete
+          <DeleteIcon />
         </Button>
       </Flex>
       {edit && (
