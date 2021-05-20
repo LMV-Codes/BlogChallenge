@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { AxiosApi } from "../../utils/AxiosApi";
 import { CloseIcon } from "@chakra-ui/icons";
+import { PostData } from "../../utils/CustomInterfaces";
 
 interface initValues {
   title: string;
@@ -21,9 +22,15 @@ interface initValues {
 
 interface PostCreateProps {
   setCreate: Function;
+  setPosts: Function;
+  posts: Array<PostData>;
 }
 
-export const PostCreate: React.FC<PostCreateProps> = ({ setCreate }) => {
+export const PostCreate: React.FC<PostCreateProps> = ({
+  setCreate,
+  setPosts,
+  posts,
+}) => {
   const toast = useToast();
   const createSchema = Yup.object().shape({
     title: Yup.string().min(3, "Title too small").required("Title is required"),
@@ -33,8 +40,8 @@ export const PostCreate: React.FC<PostCreateProps> = ({ setCreate }) => {
   });
 
   const initialValues: initValues = {
-    title: "title",
-    body: "body",
+    title: "",
+    body: "",
   };
 
   return (
@@ -74,7 +81,7 @@ export const PostCreate: React.FC<PostCreateProps> = ({ setCreate }) => {
           fontWeight="regular"
           color="gray.700"
         >
-          Edit Post
+          Create Post
         </Heading>
         <Formik
           validationSchema={createSchema}
@@ -85,13 +92,16 @@ export const PostCreate: React.FC<PostCreateProps> = ({ setCreate }) => {
                 title: values.title,
                 body: values.body,
               });
-              if (response.status === 200) {
+              console.log(response);
+              if (response.status === 201) {
+                setPosts([...posts, response.data]);
                 toast({
                   title: "Post created",
                   status: "success",
                   isClosable: true,
                   duration: 3000,
                 });
+                setCreate(false);
               }
             } catch (error) {
               toast({
@@ -117,10 +127,12 @@ export const PostCreate: React.FC<PostCreateProps> = ({ setCreate }) => {
                         Title
                       </FormLabel>
                       <Input
+                        autoFocus
                         {...field}
                         id="title"
                         color="gray.400"
                         _focus={{ color: "black" }}
+                        placeholder="Title"
                       />
                       <FormErrorMessage name="title">
                         {form.errors.title}
@@ -138,6 +150,7 @@ export const PostCreate: React.FC<PostCreateProps> = ({ setCreate }) => {
                         Text
                       </FormLabel>
                       <Textarea
+                        placeholder="Text"
                         {...field}
                         id="body"
                         color="gray.400"
@@ -153,11 +166,11 @@ export const PostCreate: React.FC<PostCreateProps> = ({ setCreate }) => {
                   <Button
                     marginTop="1em"
                     variant="outline"
-                    colorScheme="blue"
+                    colorScheme="green"
                     isLoading={props.isSubmitting}
                     type="submit"
                   >
-                    Edit
+                    Create post
                   </Button>
                 </Flex>
               </Flex>
