@@ -138,7 +138,12 @@ export const PostEdit: React.FC<PostEditProps> = ({
                       <FormLabel color="gray.500" htmlFor="title">
                         Title
                       </FormLabel>
-                      <Input {...field} id="title" color="gray.700" />
+                      <Input
+                        {...field}
+                        id="title"
+                        color="gray.400"
+                        _focus={{ color: "black" }}
+                      />
                       <FormErrorMessage name="title">
                         {form.errors.title}
                       </FormErrorMessage>
@@ -157,7 +162,8 @@ export const PostEdit: React.FC<PostEditProps> = ({
                       <Textarea
                         {...field}
                         id="body"
-                        color="gray.700"
+                        color="gray.400"
+                        _focus={{ color: "black" }}
                       ></Textarea>
                       <FormErrorMessage name="body">
                         {form.errors.body}
