@@ -8,7 +8,11 @@ import * as Yup from "yup";
 import CustomField from "../components/form/CustomField";
 import { useToast } from "@chakra-ui/react";
 
-export const Login: React.FC = () => {
+interface LoginProps {
+  setUserData: Function;
+}
+
+export const Login: React.FC<LoginProps> = ({ setUserData }) => {
   const toast = useToast();
   const history = useHistory();
 
@@ -55,6 +59,7 @@ export const Login: React.FC = () => {
               }
             );
             localStorage.setItem("token", response.data.token);
+            setUserData(response.data.token);
             history.push("/");
           } catch (error) {
             toast({

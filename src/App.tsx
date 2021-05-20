@@ -8,12 +8,20 @@ import { Login } from "./pages/Login";
 import { PostDetail } from "./pages/PostDetail";
 
 export const App = () => {
+  const [userData, setUserData] = React.useState<string | null>("");
+  React.useEffect(() => {
+    setUserData(localStorage.getItem("token"));
+  }, []);
   return (
     <Router>
-      <Navbar />
+      <Navbar userData={userData} setUserData={setUserData} />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
+        <Route
+          exact
+          path="/login"
+          render={(props) => <Login setUserData={setUserData} />}
+        />
         <Route exact path="/post/:id" component={PostDetail} />
         <Route component={NotFound} />
       </Switch>
