@@ -1,9 +1,16 @@
 import { Button } from "@chakra-ui/button";
-import { Box, Container, Flex } from "@chakra-ui/layout";
-import { Field, Form, Formik } from "formik";
+import { Box, Container, Flex, Heading } from "@chakra-ui/layout";
+import { Field, Form, Formik, FormikProps } from "formik";
 import React from "react";
 import * as Yup from "yup";
-import { FormLabel, Input, Textarea, useToast } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  Textarea,
+  useToast,
+} from "@chakra-ui/react";
 import { PostData } from "../../utils/CustomInterfaces";
 import { AxiosApi } from "../../utils/AxiosApi";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -56,7 +63,8 @@ export const PostEdit: React.FC<PostEditProps> = ({
       left="0"
       height="100%"
       width="100%"
-      bg="rgba(120,120,120,0.8)"
+      bg="rgba(0,0,0,0.5)"
+      backdropFilter="blur(3px)"
       zIndex={20}
     >
       <Container
@@ -79,6 +87,14 @@ export const PostEdit: React.FC<PostEditProps> = ({
             onClick={() => setEdit(false)}
           />
         </Flex>
+        <Heading
+          textAlign="center"
+          size="lg"
+          fontWeight="regular"
+          color="gray.700"
+        >
+          Edit Post
+        </Heading>
         <Formik
           validationSchema={editSchema}
           initialValues={initialValues}
@@ -110,15 +126,45 @@ export const PostEdit: React.FC<PostEditProps> = ({
             }
           }}
         >
-          {(props) => (
+          {(props: FormikProps<any>) => (
             <Form>
               <Flex flexDirection="column">
-                <FormLabel color="gray.500">Title</FormLabel>
-                <Field as={Input} name="title" color="gray.700" />
-                <FormLabel marginTop="1em" color="gray.500">
-                  Text
-                </FormLabel>
-                <Field as={Textarea} name="body" color="gray.700" />
+                <Field name="title">
+                  {({ field, form }: any) => (
+                    <FormControl
+                      id="title"
+                      isInvalid={form.errors.title && form.touched.title}
+                    >
+                      <FormLabel color="gray.500" htmlFor="title">
+                        Title
+                      </FormLabel>
+                      <Input {...field} id="title" color="gray.700" />
+                      <FormErrorMessage name="title">
+                        {form.errors.title}
+                      </FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
+                <Field name="body">
+                  {({ field, form }: any) => (
+                    <FormControl
+                      id="body"
+                      isInvalid={form.errors.body && form.touched.body}
+                    >
+                      <FormLabel marginTop="1em" color="gray.500">
+                        Text
+                      </FormLabel>
+                      <Textarea
+                        {...field}
+                        id="body"
+                        color="gray.700"
+                      ></Textarea>
+                      <FormErrorMessage name="body">
+                        {form.errors.body}
+                      </FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
                 <Flex justifyContent="center">
                   <Button
                     marginTop="1em"
