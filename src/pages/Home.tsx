@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Button, Container, Flex, useToast } from "@chakra-ui/react";
+import { Button, Container, Flex, Spinner, useToast } from "@chakra-ui/react";
 import { PostData } from "../utils/CustomInterfaces";
 import { AxiosApi } from "../utils/AxiosApi";
 import { Post } from "../components/post/Post";
@@ -38,28 +38,34 @@ export const Home: React.FC = () => {
           posts={posts}
         />
       )}
-      <Flex flexDir="column">
-        {posts.map((post, index) => (
-          <Post
-            post={post}
-            posts={posts}
-            index={index}
-            setPosts={setPosts}
-            key={index}
-          />
-        ))}
-        <Flex justifyContent="center" marginBottom="2em">
-          <Button
-            textTransform="uppercase"
-            variant="outline"
-            onClick={() => setCreatePost(true)}
-            colorScheme="green"
-            rightIcon={<AddIcon />}
-          >
-            Create post
-          </Button>
+      {posts.length !== 0 ? (
+        <Flex flexDir="column">
+          {posts.map((post, index) => (
+            <Post
+              post={post}
+              posts={posts}
+              index={index}
+              setPosts={setPosts}
+              key={index}
+            />
+          ))}
+          <Flex justifyContent="center" marginBottom="2em">
+            <Button
+              textTransform="uppercase"
+              variant="outline"
+              onClick={() => setCreatePost(true)}
+              colorScheme="green"
+              rightIcon={<AddIcon />}
+            >
+              Create post
+            </Button>
+          </Flex>
         </Flex>
-      </Flex>
+      ) : (
+        <Flex justifyContent="center" minHeight="50vh" alignItems="center">
+          <Spinner size="xl" color="blue.300" />
+        </Flex>
+      )}
     </Container>
   );
 };
