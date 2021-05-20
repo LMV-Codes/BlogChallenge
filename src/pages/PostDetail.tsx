@@ -1,8 +1,11 @@
+import { Button } from "@chakra-ui/button";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Container, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import { useToast } from "@chakra-ui/toast";
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { AxiosApi } from "../utils/AxiosApi";
 import { PostData } from "../utils/CustomInterfaces";
 
@@ -42,6 +45,7 @@ export const PostDetail: React.FC = () => {
       ) : (
         <Flex flexDir="column">
           <Heading
+            textTransform="uppercase"
             size="lg"
             textAlign="center"
             fontWeight="regular"
@@ -49,9 +53,19 @@ export const PostDetail: React.FC = () => {
           >
             {post?.title}
           </Heading>
-          <Text>{post?.body}</Text>
+          <Text marginTop="2em">{post?.body}</Text>
         </Flex>
       )}
+      <Link to="/">
+        <Button
+          variant="outline"
+          colorScheme="blue"
+          marginTop="1em"
+          leftIcon={<ArrowBackIcon />}
+        >
+          Go back to posts
+        </Button>
+      </Link>
     </Container>
   );
 };
