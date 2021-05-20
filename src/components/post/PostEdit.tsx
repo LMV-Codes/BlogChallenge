@@ -114,6 +114,12 @@ export const PostEdit: React.FC<PostEditProps> = ({
                 const newArray = editArray(posts, newPost);
                 setPosts(newArray);
                 setEdit(false);
+                toast({
+                  title: "Post edited",
+                  status: "success",
+                  isClosable: true,
+                  duration: 3000,
+                });
               }
             } catch (error) {
               toast({
