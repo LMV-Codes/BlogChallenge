@@ -5,11 +5,14 @@ import { AxiosApi } from "../utils/AxiosApi";
 import { Post } from "../components/post/Post";
 import { AddIcon } from "@chakra-ui/icons";
 import { PostCreate } from "../components/post/PostCreate";
+
 export const Home: React.FC = () => {
   const toast = useToast();
 
   const [posts, setPosts] = useState<Array<PostData>>([]);
+
   const [createPost, setCreatePost] = useState(false);
+
   const getPostData = useCallback(async () => {
     try {
       const response = await AxiosApi.get("");
