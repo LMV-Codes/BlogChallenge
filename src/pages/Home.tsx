@@ -31,6 +31,17 @@ export const Home: React.FC = () => {
 
   return (
     <Container maxWidth="container.xl" bg="gray.100">
+      <Flex justifyContent="center" marginTop="2em">
+        <Button
+          textTransform="uppercase"
+          variant="outline"
+          onClick={() => setCreatePost(true)}
+          colorScheme="green"
+          rightIcon={<AddIcon />}
+        >
+          Create post
+        </Button>
+      </Flex>
       {createPost && (
         <PostCreate
           setCreate={setCreatePost}
@@ -49,17 +60,6 @@ export const Home: React.FC = () => {
               key={index}
             />
           ))}
-          <Flex justifyContent="center" marginBottom="2em">
-            <Button
-              textTransform="uppercase"
-              variant="outline"
-              onClick={() => setCreatePost(true)}
-              colorScheme="green"
-              rightIcon={<AddIcon />}
-            >
-              Create post
-            </Button>
-          </Flex>
         </Flex>
       ) : (
         <Flex justifyContent="center" minHeight="50vh" alignItems="center">
