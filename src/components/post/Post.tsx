@@ -55,13 +55,13 @@ export const Post: React.FC<PostProps> = ({ posts, setPosts, post }) => {
       <Flex justifyContent="space-between">
         <Flex>
           <Link to={`post/${post.id}`}>
-            <Button variant="outline" margin="1em" colorScheme="blue">
+            <Button variant="outline" margin="0.5em" colorScheme="blue">
               Detail
             </Button>
           </Link>
           <Button
             variant="outline"
-            margin="1em"
+            margin="0.5em"
             colorScheme="teal"
             onClick={() => setEdit(true)}
           >
@@ -70,7 +70,7 @@ export const Post: React.FC<PostProps> = ({ posts, setPosts, post }) => {
         </Flex>
         <Button
           variant="outline"
-          margin="1em"
+          margin="0.5em"
           colorScheme="red"
           onClick={() => deletePost(post.id)}
         >

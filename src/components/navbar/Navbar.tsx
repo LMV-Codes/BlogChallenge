@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({ userData, setUserData }) => {
             <Text
               marginRight="1em"
               fontFamily="Roboto Condensed"
-              fontSize="0.8em"
+              fontSize="0.6em"
             >
               {decodeToken()}
             </Text>
