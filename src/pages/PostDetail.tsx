@@ -4,7 +4,7 @@ import { Container, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 import { useToast } from "@chakra-ui/toast";
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { AxiosApi } from "../utils/AxiosApi";
 import { PostData } from "../utils/CustomInterfaces";
@@ -14,9 +14,24 @@ interface UrlId {
 }
 
 export const PostDetail: React.FC = () => {
+  const history = useHistory();
+  const checkLogin = () => {
+    if (localStorage.getItem("token") !== null) {
+      history.push("/login");
+    }
+  };
+
+  useEffect(() => {
+    checkLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [post, setPost] = useState<PostData | null>(null);
+
   const { id } = useParams<UrlId>();
+
   const toast = useToast();
+
   const getPostData = useCallback(async () => {
     try {
       const response = await AxiosApi.get(`${id}`);
