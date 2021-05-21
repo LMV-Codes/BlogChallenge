@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
-import React, { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import Icon from "@chakra-ui/icon";
 import { FaUser } from "react-icons/fa";
