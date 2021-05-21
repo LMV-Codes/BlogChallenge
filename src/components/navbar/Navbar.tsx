@@ -18,19 +18,6 @@ interface decodedUser {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ userData, setUserData }) => {
-  const history = useHistory();
-
-  const checkIfLoggedIn = () => {
-    if (localStorage.getItem("token") === null) {
-      history.push("/login");
-    }
-  };
-
-  useEffect(() => {
-    checkIfLoggedIn();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const logout = () => {
     localStorage.clear();
     setUserData("");
