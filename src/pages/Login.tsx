@@ -85,7 +85,7 @@ export const Login: React.FC<LoginProps> = ({ setUserData }) => {
                 <Button
                   marginTop="1em"
                   variant="outline"
-                  colorScheme="teal"
+                  colorScheme="blue"
                   isLoading={props.isSubmitting}
                   type="submit"
                 >
