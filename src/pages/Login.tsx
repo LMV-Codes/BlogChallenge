@@ -45,6 +45,7 @@ export const Login: React.FC<LoginProps> = ({ setUserData }) => {
       padding="2em"
       borderRadius="5px"
       bg="gray.100"
+      marginTop="2em"
     >
       <Formik
         validationSchema={loginSchema}
