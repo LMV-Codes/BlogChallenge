@@ -5,9 +5,12 @@ import { AxiosApi } from "../utils/AxiosApi";
 import { Post } from "../components/post/Post";
 import { AddIcon } from "@chakra-ui/icons";
 import { PostCreate } from "../components/post/PostCreate";
+import { useHistory } from "react-router";
 
 export const Home: React.FC = () => {
   const toast = useToast();
+
+  const history = useHistory();
 
   const [posts, setPosts] = useState<Array<PostData>>([]);
 
@@ -31,6 +34,17 @@ export const Home: React.FC = () => {
   useEffect(() => {
     getPostData();
   }, [getPostData]);
+
+  const checkIfLoggedIn = () => {
+    if (localStorage.getItem("token") === null) {
+      history.push("/login");
+    }
+  };
+
+  useEffect(() => {
+    checkIfLoggedIn();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container maxWidth="container.xl" bg="gray.100">
